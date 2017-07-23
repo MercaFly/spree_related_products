@@ -12,11 +12,13 @@ Spree::Core::Engine.add_routes do
   end
 
   namespace :api, defaults: { format: 'json' } do
-    resources :products, only: [] do
-      get :related, on: :member
-      resources :relations do
-        collection do
-          post :update_positions
+    namespace :v1 do
+      resources :products, only: [] do
+        get :related, on: :member
+        resources :relations do
+          collection do
+            post :update_positions
+          end
         end
       end
     end

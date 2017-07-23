@@ -4,7 +4,7 @@ module Spree
       before_action :load_data, only: [:create, :destroy]
 
       respond_to :js, :html
-
+      
       def create
         @relation = Relation.new(relation_params)
         @relation.relatable = @product
