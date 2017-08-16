@@ -67,9 +67,17 @@ module Spree
             :position
           ]
         end
-
+        
         def load_data
-          @product = Spree::Product.friendly.find(params[:product_id])
+          @product = Spree::Product.includes(relations: [related_to: product_includes]).friendly.find(params[:product_id])
+        end
+
+        def product_includes
+          [{ variants: variants_associations, master: variants_associations }, :tags]
+        end
+
+        def variants_associations
+          [{option_values: :option_type}, :default_price, :images, :default_origin_price, :stock_items]
         end
 
         def find_relation
